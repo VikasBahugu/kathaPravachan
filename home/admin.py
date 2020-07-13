@@ -1,3 +1,5 @@
 from django.contrib import admin
+from home.models import ContactUser, Profile, SigningUser, Newsletter, AnswerQuestions
 
-# Register your models here.
+
+admin.site.register((ContactUser, Profile, SigningUser, Newsletter, AnswerQuestions))

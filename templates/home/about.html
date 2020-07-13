@@ -1,5 +1,41 @@
 {% extends 'home/base.html' %}
-
+{% load static %}
 {% block body %}
 
+
+    <div class="container">
+
+        <div class="row" style="margin-top: 120px;">
+
+            <div class="col-12 col-md-4 col-lg-5 visible-xs visible-sm m-b-20">
+                <figure>
+                    <img src="{% static 'images/2.jpg' %}" alt="logo">
+                </figure>
+            </div>
+
+
+            <div class="col-12 col-md-8 col-lg-7">
+                <header class="entry-header">
+                    <h2 class="entry-title">Know about us / <span style="font-weight: 100; font-size: 32px;"> कुंडली क्या है? </span>
+                    </h2>
+                </header>
+
+                <div class="entry-content" style="background-image: url(" {% static
+                'images/stars.jpg' %}");">
+                <p style="background:#f7f8f8;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                    imperdiet, nulla et dictum
+                    interdum, nisi
+                    lorem egestas vitae scel.<br>
+                    See full list of our team who assist lacks of people over the globe<span id="dots">...</span><span
+                            id="more">
+                        <br><span style="font-size:27px">Our team members who have worked so hard.</span><br>
+                        <img src="{% static 'images/kundali-photo.jpg' %}"
+                             style="width:100%; height:100%; border-radius:2rem">
+                        erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr style="margin-top:100px">
 {% endblock %}
