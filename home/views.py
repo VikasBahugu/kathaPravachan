@@ -126,7 +126,7 @@ def twelve_rashi(request):
 def send_mail(subject, to, body_html):
     # SENDING EMAIL TO VIKAS AND THE ONE WHO HAS SIGNED IN.
     EMAIL_ADDRESS = 'bhanuastrology@gmail.com'
-    EMAIL_PASSWORD = 'Bhanu@astrology'
+    EMAIL_PASSWORD = 'my password'
 
     msg = EmailMessage()
     msg['Subject'] = subject
@@ -319,15 +319,15 @@ def homepage(request):
 
     # # Your Account Sid and Auth Token from twilio.com/console
     # # DANGER! This is insecure. See http://twil.io/secure
-    # account_sid = 'AC57821e6c47ff3f067f2dd8249cd49232'
-    # auth_token = 'bb6a71d0e2627a265bf9d52f074747cd'
+    # account_sid = 'SID_TOKEN'
+    # auth_token = 'AUTH_TOKEN'
     # client = Client(account_sid, auth_token)
     #
     # message = client.messages \
     #     .create(
     #     body="Someone have entered to your website.",
     #     from_='+12029725928',
-    #     to='+917895579330'
+    #     to='YOUR NUMBER'
     # )
     #
     # print(message.sid)
@@ -619,8 +619,8 @@ def signup(request):
                     #
                     # # Your Account Sid and Auth Token from twilio.com/console
                     # # DANGER! This is insecure. See http://twil.io/secure
-                    # account_sid = 'AC57821e6c47ff3f067f2dd8249cd49232'
-                    # auth_token = 'bb6a71d0e2627a265bf9d52f074747cd'
+                    # account_sid = 'SID'
+                    # auth_token = 'TOKEN'
                     # client = Client(account_sid, auth_token)
                     #
                     # message = client.messages \
