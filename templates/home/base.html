@@ -3,16 +3,33 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <LINK REL="bhanu astrology" HREF="{% static 'images/kundali-horoscope.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://www.bhanuastrology.com/"/>
+    <title>Horoscopes, Tarot & Love Compatibility | bhanuastrology.com</title>
+    <meta name="description"
+          content="bhanuastrology.com provides free daily horoscopes, online tarot readings, psychic readings, Chinese astrology, Vedic Astrology, Mayan Astrology, Numerology, Feng Shui,  zodiac 101, sun sign compatibility and video horoscopes."/>
+    <meta http-equiv="Content-Language" content="en-us">
+    <!--    <link rel="apple-touch-icon" sizes="180x180" href="/images-US/apple-touch-icon.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="32x32" href="/images-US/favicon-32x32.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="16x16" href="/images-US/favicon-16x16.png">-->
+    <!--    <link rel="manifest" href="/images-US/site.webmanifest">-->
+    <!--    <link rel="mask-icon" href="/images-US/safari-pinned-tab.svg" color="#343737">-->
+    <!--    <meta name="msapplication-TileColor" content="#343737">-->
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests;block-all-mixed-content">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!--    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
 
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
@@ -24,7 +41,30 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="{% static 'js/custom.js' %}"></script>
 
-    <style>{% block style %}{% endblock %}</style>
+    <style>
+    .message_animation{
+                -webkit-animation-duration: 10s;
+            animation-duration: 2s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+    }
+    @-webkit-keyframes shake {
+            0%, 100% {-webkit-transform: translateX(0);}
+            10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+            20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+         }
+
+         @keyframes shake {
+            0%, 100% {transform: translateX(0);}
+            10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+            20%, 40%, 60%, 80% {transform: translateX(10px);}
+         }
+
+         .shake {
+            -webkit-animation-name: shake;
+            animation-name: shake;
+         }
+    {% block style %}{% endblock %}</style>
     {% block script %}{% endblock %}
 </head>
 <body>
@@ -36,12 +76,12 @@
                 <div class="col-10 col-lg-2 order-lg-1">
                     <div class="site-branding">
                         <div class="site-title">
-                            <a href="#"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+                            <a href="#"><img src="{% static 'images/logo.png' %}" alt="bhanu astrology logo"></a>
                         </div><!-- .site-title -->
                     </div><!-- .site-branding -->
                 </div><!-- .col -->
 
-                <div class="col-2 col-lg-7 order-3 order-lg-2">
+                <div class="navbartop col-2 col-lg-7 order-3 order-lg-2">
                     <nav class="site-navigation">
                         <div class="hamburger-menu d-lg-none">
                             <span></span>
@@ -51,24 +91,43 @@
                         </div><!-- .hamburger-menu -->
 
                         <ul>
-                            <li><a href="{% url 'homepage' %}">Home/<span style="font-weight: lighter;">होम
+                            <li class="text-center">
+                                <a href="{% url 'homepage' %}">Home/{% if size_badge > 0 %}
+                                        <span class="badge badge-secondary" style="background-color:green">
+                                            {{size_badge}}</span>
+                                        {% endif %}
+                                    <br>
+                                    <span style="font-weight: lighter;">होम</span>
+                                    <h6 style='display:inline; color:blue'>
+
+                                    </h6>
+                                </a>
+
+                            </li>
+
+
+
+                            <li class="text-center"><a href="#today_horoscope">Today's <span class="badge badge-primary" style="background-color:">New</span><br>horoscope
                             </span></a></li>
 
-                            <li><a href="{% url 'about' %}">About/<span style="font-weight: lighter;">हमारे बारे में
+                            <li class="text-center"><a href="{% url 'videoblog' %}">Astrology <span class="badge badge-primary" style="background-color:">New</span><br>articles
                             </span></a></li>
 
-                            <li><a href="{% url 'videoblog' %}">Videoblogs/<span style="font-weight: lighter;">वीडियो ब्लॉग
+                            <li class="text-center"><a href="{% url 'videoblog' %}">Videoblogs/<br><span style="font-weight: lighter;">वीडियो ब्लॉग
                             </span></a></li>
-
-                            <li><a href="{% url 'contact' %}">Contact/<span style="font-weight: lighter;">संपर्क
-                            </span></a></li>
-
-
 
                         </ul>
 
                     </nav><!-- .site-navigation -->
                 </div><!-- .col -->
+
+                <!--                Donate button-->
+                <!--             <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">-->
+                <!--                  <div class="buy-tickets">-->
+                <!--                      <a class="btn gradient-bg" href="#">Donate / दान</a>-->
+                <!--                  </div>&lt;!&ndash; .buy-tickets &ndash;&gt;-->
+                <!--              </div>&lt;!&ndash; .col &ndash;&gt;-->
+
 
             </div><!-- .row -->
         </div><!-- .container-fluid -->
@@ -77,84 +136,116 @@
 
     <div class="page-header single-event-page-header">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <header class="entry-header">
-                        <h2 class="entry-title" style="font-size:36px">BHANU-Astrology.</h2>
-                        <span style="font-size:30px; font-weight: lighter;" class="entry-title">एवम कथा प्रवचन !</span>
+
+            <div class="row" style="padding-left:10px; margin-top:-35px">
+                <div class="col-13">
+                    <header class="entry-header entry-titleos">
+                        <h2 class="entry-title entry-titleo" style="text-shadow: 2px 2px 5px red; font-size:36px">BHANU-Astrology.</h2>
+                        <span style="font-size:25px; font-weight: lighter; text-shadow: 2px 2px 5px red;" class="entry-title">एवम कथा प्रवचन !</span>
                     </header>
                 </div>
             </div>
+
+            <script>
+                $('.dropdown-menu').click(function() {
+  $(this).next('.dropdown-menu').slideToggle(500);
+});
+
+
+            </script>
+            <!--            <div class="dropdown btn btn-primary wlcmbtn" style=" float:right;">-->
+            <button style="float:right; " class=" btn btn-secondary  btn gradient-bg"
+                    type="button"
+                    id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if not request.user.is_superuser or not user.is_authenticated %}
+                Welcome
+                {% elif request.user.is_superuser or user.is_authenticated %}
+                {{request.user}}
+                <i class="fa fa-check" style="color:skyblue" aria-hidden="true"></i>
+                {% endif %}
+            </button>
+            <br>
+            <div class="dropdown-menu"
+                 style="; border-radius:12px; background-color:#F5F5F; transition: 0.2s ease-out; -webkit-transform:scale(2);"
+                 aria-labelledby="dropdownMenu2">
+                <a href="{% url 'about' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">About</button>
+                </a>
+                <a href="{% url 'contact' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">Contact</button>
+                </a>
+                {% if request.user.is_superuser %}
+                <a href="{% url 'members' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">Members ({{mem_len}})</button>
+                </a>
+                <a href="{% url 'dashboard' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">
+                        Dashboard
+                        {% if for_expert_badge > 0 %}
+                        <span class="badge badge-secondary" style="background-color:green">{{for_expert_badge}}</span>
+                        {% endif %}
+                    </button>
+                </a>
+                {% endif %}
+
+                {% if not user.is_authenticated and not request.user.is_superuser %}
+                <a href="{% url 'login' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">Login</button>
+                </a>
+                <a href="{% url 'signup' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">Signup</button>
+                </a>
+
+
+                {% elif user.is_authenticated or request.user.is_superuser %}
+                <a href="{% url 'profile' %}" style="text-decoration:none">
+                    <button style="color:orange" class="dropdown-item" type="button">Profile</button>
+                </a>
+
+
+                <a href="{% url 'logout' %}" style="text-decoration:none">
+                    <button style="color:orange; border:1px dotted grey; border-radius:4px;" class="dropdown-item"
+                            type="button">
+                        Logout {{user.username}}
+                    </button>
+                </a>
+                {% endif %}
+                <!--        <button disabled style="width:220px; height:45px; color:Red; text-align:left; padding-left:32px">-->
+                <!--    {{page_view}} Visitors-->
+                <!--  </button>-->
+
+            </div>
+            <!--            </div>-->
         </div>
     </div>
 </header><!-- .site-header -->
 
-<!--<h2 class="btn gradient-bg" style="float:right; margin-right:34">Subscribe</h2>-->
+<script>
+$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 7000);
+});
 
 
-<div class="dropdown" style="float:right; margin-top:-50px; margin-right:20px;">
-  <button class="btn btn-secondary dropdown-toggle btn gradient-bg" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Welcome
-      {% if request.user.is_superuser or user.is_authenticated %}
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cloud-check-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 4.854a.5.5 0 0 0-.708-.708L7 8.793 5.854 7.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-          </svg>
-      {% endif %}
-  </button>
+</script>
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    {% if request.user.is_superuser %}
-    <a href="{% url 'members' %}" style="text-decoration:none"><button style="color:orange" class="dropdown-item" type="button">Members</button></a>
-    <a href="{% url 'dashboard' %}" style="text-decoration:none"><button style="color:orange" class="dropdown-item" type="button">Dashboard</button></a>
-    {% endif %}
-
-    {% if not user.is_authenticated and not request.user.is_superuser %}
-    <a href="{% url 'login' %}" style="text-decoration:none"><button style="color:orange" class="dropdown-item" type="button">Login</button></a>
-    <a href="{% url 'signup' %}" style="text-decoration:none"><button style="color:orange" class="dropdown-item" type="button">Signup</button></a>
-
-
-    {% elif user.is_authenticated or request.user.is_superuser %}
-    <a href="{% url 'profile' %}" style="text-decoration:none"><button style="color:orange" class="dropdown-item" type="button">Profile</button></a>
-    <a href="{% url 'logout' %}" style="text-decoration:none"><button style="color:orange; border:1px dotted grey; border-radius:4px;" class="dropdown-item" type="button">Logout {{user.username}}</button></a>
-    {% endif %}
-  </div>
+{% if messages|length > 0 %}
+<div class="container" style="max-width:800px; margin:auto">
+    {% for message in messages %}
+    <div class="alert message_animation shake alert-{{messages.tags}}" id="message_alert" role="alert"
+         style="margin-bottom:80px; margin-top:-20px; max-width:500px; min-width:300px; background-color:#E0EAFC">
+        {{forloop.counter}}) {{message}}
+    </div>
+    {% endfor %}
 </div>
 
-
-<!--<div class="dropdown" style="float:right; margin-top:-50px; margin-right:60px">-->
-<!--    <button class="btn btn-primary dropdown-toggle btn gradient-bg" style="width:200px; padding:13px" type="button" data-toggle="dropdown">Welcome <strong>{{user.username}}</strong>-->
-<!--  <span class="caret"></span></button>-->
-<!--  <ul class="dropdown-menu" style="">-->
-
-<!--                {% if request.user.is_superuser %}-->
-<!--                             <li><a style="padding-left:15px; color:orange" href="{% url 'members' %}">Members /-->
-<!--                                <span style="font-weight: lighter;">-->
-<!--                              संपर्क-->
-<!--                            </span></a></li>-->
-<!--                {% endif %}-->
-
-
-<!--                {% if not user.is_authenticated and not request.user.is_superuser %}-->
-<!--                      <li><a style="padding-left:15px; color:orange" href="{% url 'login' %}">Login/<span style="font-weight: lighter;">संपर्क</span></a></li>-->
-
-<!--                      <li><a style="padding-left:15px; color:orange" href="{% url 'signup' %}">Signup/<span style="font-weight: lighter;">संपर्क</span></a></li>-->
-<!--                {% elif user.is_authenticated or request.user.is_superuser %}-->
-<!--                      <li><a style="padding-left:15px; color:orange" href="{% url 'profile' %}">Profile/<span style="font-weight: lighter;">संपर्क</span></a></li>-->
-<!--                      <li style="border:1px solid grey; background:#F7F1F1; padding-left:27px; border-radius:3rem"><a href="{% url 'logout' %}">Logout {{user.username}}</a>-->
-<!--                {% else %}-->
-
-<!--                {% endif %}-->
-
-
-
-<!--  </ul>-->
-<!--</div>-->
-
+{% endif %}
 {% block body %}
 
+
 {% endblock body %}
-
-
 
 
 <div class="container">
@@ -162,20 +253,25 @@
 
     <div style="padding:40px" class="col-12">
         <header class="entry-header">
-            <h2 class="entry-title">Subscribe to our newsletter to get latest news about upcoming events</h2>
+            <h1 class="entry-title">Subscribe to our newsletter to get latest news about upcoming events</h1>
             <p>Join us NOW!</p>
         </header>
 
         <div class="newsletter-form">
-            <form style="margin-left:30px" action="{% url 'newsletter' %}" method="post" class="flex flex-wrap justify-content-center align-items-center">
+            <form style="padding-left:30px" action="{% url 'newsletter' %}" method="post"
+                  class="flex flex-wrap justify-content-center align-items-center">
                 {% csrf_token %}
-                <div class="col-md-12 col-lg-3">
-                    <input style="outline: none; width:inherit; min-width:260px; margin-left:-40px; padding:12px; border-radius: 40px; height:60px;" type="text"
+                <div class="col-md-12 col-lg-4">
+                    <input required
+                           style="outline: none; width:inherit; min-width:290px; padding-left:-40px; padding:18px; border-radius: 40px; height:60px;"
+                           type="text"
                            placeholder="Name" name="name">
                 </div>
 
-                <div class="col-md-12 col-lg-6">
-                    <input style="outline:none; width: inherit; min-width:260px; padding-left:10px; margin-left:-40px; border-radius: 40px; height:60px;" type="email"
+                <div class="col-md-12 col-lg-5"">
+                    <input required
+                           style="outline:none; width: inherit; min-width:290px; padding-left:18px; padding-left:-40px; border-radius: 40px; height:60px;"
+                           type="email"
                            placeholder="Your e-mail" name="email">
                 </div>
 
@@ -187,37 +283,101 @@
     </div>
 
 </div>
+
+
 <footer class="site-footer">
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3"  style="line-height:170%">
+            <ul class="list-group list-group-flush">
+                <span style="color:brown">Main links</span>
+                <li><a style="color:white" href="{% url 'homepage' %}">Home</a></li>
+                <li><a style="color:white" href="{% url 'profile' %}">profile</a></li>
+                {% if request.user.is_superuser %}
+                <li><a style="color:white" href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a style="color:white" href="{% url 'members' %}">Members</a></li>
+                {% endif %}
+                <li><a style="color:white" href="{% url 'about' %}">About</a></li>
+                <li><a style="color:white" href="{% url 'videoblog' %}">Videoblog</a></li>
+                <li><a style="color:white" href="{% url 'contact' %}">Contact</a></li>
+                <li><a style="color:white" href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                <li><a style="color:white" href="{% url 'terms_of_service' %}">Terms of service</a></li>
+                <li><a style="color:white">Today's horoscope</a></li>
+                <li><a style="color:white">Astrology articles</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 mb-3" style="line-height:200%">
+            <ul class="list-group list-group-flush">
+                <span style="color:brown">Astrology</span>
+                <li><a href="#" style="color:white">The elements</a></li>
+                <li><a href="#" style="color:white">The Qualities</a></li>
+                <li><a href="#" style="color:white">The Houses</a></li>
+                <li><a href="#" style="color:white">The Planets</a></li>
+                <li><a href="#" style="color:white">Astrology Branches</a></li>
+                <li><a href="#" style="color:white">Dates and Info</a></li>
+                <li><a href="#" style="color:white">Sign Compatibility</a></li>
+                <li><a href="#" style="color:white">Zoadic Calender</a></li>
+                <li><a href="#" style="color:white">Home</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 mb-3" style="line-height:150%">
+            <ul class="list-group list-group-flush">
+                <span style="color:brown">Zoadic signs</span>
+                <li><a href="/horoscope/maish" style="color:white">Aries or Maish (मैश)</a></li>
+                <li><a href="/horoscope/vrish" style="color:white">Taurus or Vrish (वृष)</a></li>
+                <li><a href="/horoscope/mithun" style="color:white">Gemini or Mithun (मिथुन)</a></li>
+                <li><a href="/horoscope/kark" style="color:white">Cancer or Kark (कर्क)</a></li>
+                <li><a href="/horoscope/singh" style="color:white">Leo or Singh (सिंह)</a></li>
+                <li><a href="/horoscope/kanya" style="color:white">Virgo or Kanya (कन्या)</a></li>
+                <li><a href="/horoscope/tula" style="color:white">Libra or Tula (तुला)</a></li>
+                <li><a href="#" style="color:white">Scorpio or Vrishchik (वृश्चिक)</a></li>
+                <li><a href="#" style="color:white">Sagittarius or Dhanu (धनु)</a></li>
+                <li><a href="#" style="color:white">Capricorn or Makar (मकर)</a></li>
+                <li><a href="#" style="color:white">Aquarius or Kumbh (खुम्ब)</a></li>
+                <li><a href="#" style="color:white">Pisces or Meen (मीन)</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <figure class="footer-logo">
-                    <a href="#"><img src="{% static 'images/logo.png' %}" style="width:150px; height:150px" alt="logo"></a>
-                </figure>
-
                 <nav class="footer-navigation">
                     <ul class="flex flex-wrap justify-content-center align-items-center">
-                        <li><a href="{% url 'homepage' %}">HOME/होम</a></li>
-                        <li><a href="{ {% url 'about' %}">ABOUT/हमारे बारे में</a></li>
-                        <li><a href="{ {% url 'videoblog' %}">VIDEOBLOGS/वीडियो ब्लॉग </a></li>
-                        <li><a href="{ {% url 'contact' %}">CONTACT/संपर्क</a></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
 
                     </ul>
                 </nav>
+                | <a href="{% url 'privacy_policy' %}">Privacy policy</a> | <a href="{% url 'terms_of_service' %}">Terms
+                of service</a> |<br>
 
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i class="fa fa-heart-o" style="color:red;" aria-hidden="true"></i> by <a
+                All rights reserved | This template is made with <i class="fa fa-heart-o" style="color:red;"
+                                                                    aria-hidden="true"></i> by <a
                     href="https://colorlib.com" target="_blank">Colorlib</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                 <div class="footer-social">
                     <ul class="flex flex-wrap justify-content-center align-items-center">
 
-                        <li><a href="#"><i style="font-size:43px;" class="fa fa-whatsapp"></i></a></li>
-                        <li><a href="#"><i style="font-size:43px; margin-left:11px; margin-right:22px" class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i style="font-size:43px; margin-left:22px" class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i style="font-size:43px; margin-left:22px" class="fa fa-twitter"></i></a></li>
+                        <li>
+                            <a href="https://api.whatsapp.com/send?phone=919837937606&text=Dear Bhanu-Astrology and team. Can we talk?"
+                               target="_blank"><i style="font-size:33px;" class="fa fa-whatsapp"></i></a></li>
+                        <li><a href="#"><i style="font-size:33px; " class="fa fa-instagram"></i></a></li>
+                        <li><a href="http://www.facebook.com/sharer.php?u=https://www.kathapravachan.pythonanywhere.com"
+                               target="_blank"><i style="font-size:33px; padding-left:10px;" class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/share?url=https://www.kathapravachan.pythonanywhere.com&amp;hashtags=Astrology"
+                               target="_blank"><i style="font-size:33px; " class="fa fa-twitter"></i></a></li>
+                        <li>
+                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.kathapravachan.pythonanywhere.com"
+                               target="_blank"><i style="font-size:33px; " class="fa fa-linkedin"></i></a></li>
+
+
                     </ul>
                 </div>
             </div>
@@ -225,21 +385,40 @@
     </div>
 </footer>
 
+
 <div class="back-to-top flex justify-content-center align-items-center">
-    <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg></span>
+    <span style=""><i class="fa fa-upload" aria-hidden="true"></i></span>
 </div>
 
-<script type='text/javascript' src='{% static 'js/jquery.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/masonry.pkgd.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/jquery.collapsible.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/swiper.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/jquery.countdown.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/circle-progress.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/jquery.countTo.min.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/custom.js' %}'></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script type='text/javascript'
+        src="{% static 'js/jquery.js' %}"></script>
+<script type='text/javascript'
+        src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+<!--<script type='text/javascript'-->
+<!--        src="{% static ' js/jquery.collapsible.min.js' %}"></script>-->
+<script type='text/javascript'
+        src="{% static 'js/swiper.min.js' %}"></script>
+<script type='text/javascript'
+        src="{% static 'js/jquery.countdown.min.js' %}">
+</script>
+<script type='text/javascript'
+        src="{% static 'js/circle-progress.min.js' %}">
+</script>
+<script type='text/javascript'
+        src="{% static 'js/jquery.countTo.min.js' %}">
+</script>
+<script type='text/javascript'
+        src="{% static 'js/custom.js' %}">
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

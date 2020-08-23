@@ -1,243 +1,399 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
-{% block style %}
+{% block title %}Bhanu katha videos{% endblock %}
 
+{% block script %}
+{% endblock %}
+
+
+{% block style %}
+body,html{
+font-family: 'Roboto', sans-serif;
+}
 .entry-content{
 max-width:410px;
 }
+
+
+p {
+margin: 0 0 10px;
+font-family: 'Roboto', sans-serif;
+}
+p, pre {
+margin: 0 0 1em 0;
+}
+a, a:link, a:focus, a:active, a:visited {
+outline: 0;
+}
+a, a:link, a:focus, a:active, a:visited {
+outline: 0;
+}
+img {
+border: 0;
+-ms-interpolation-mode: bicubic;
+}
+.interior.container .row {
+display: flex;
+flex-wrap: wrap;
+
+<!--This is allowing the cards to settle in left and right and not in the order left, center, right-->
+<!--justify-content: space-between;-->
+}
+.blogBox {
+margin-bottom: 30px;
+box-sizing: border-box;
+}
+.blogBox .item {
+background: #f4f4f4;
+-webkit-transition: all 0.15s ease-in-out;
+transition: all 0.15s ease-in-out;
+height: 100%;
+}
+.blogBox .item:hover {
+background: #e8e8e8;
+cursor: pointer;
+}
+.blogBox .item img {
+width: 100%;
+}
+.blogBox .item p {
+padding-bottom: 40px;
+}
+.blogBox .item .blogTxt {
+padding: 25px;
+}
+.blogBox .item h2 {
+margin: 15px 0;
+font-family: 'Roboto', sans-serif;
+}
+.blogBox .item .blogCategory a {
+padding: 5px 10px 2px;
+border: 1px solid #616161;
+color: #616161;
+text-transform: uppercase;
+font-size: 14px;
+font-family: 'Roboto', sans-serif;
+-webkit-transition: all 0.15s ease-in-out;
+transition: all 0.15s ease-in-out;
+}
+.blogBox .item .blogCategory a:hover {
+background: #616161;
+color: #fff;
+text-decoration: none;
+}
+
+#loadMore {
+padding-bottom: 30px;
+padding-top: 30px;
+text-align: center;
+width: 100%;
+}
+#loadMore a {
+background: #042a63;
+border-radius: 3px;
+color: white;
+display: inline-block;
+padding: 10px 30px;
+transition: all 0.25s ease-out;
+-webkit-font-smoothing: antialiased;
+}
+#loadMore a:hover {
+background-color: #021737;
+}
+
+@media screen and (min-width: 1200px) {
+.blogBox .featured h2 {
+font-size: 42px;
+}
+}
+@media screen and (min-width: 991px) {
+.blogBox .featured h2 {
+font-size: 30px;
+font-style: italic;
+}
+.blogBox .featured .blogTxt {
+max-width: 50%;
+width: 100%;
+padding: 50px;
+float: left;
+background: inherit;
+min-height: 378px;
+}
+.blogBox .featured img {
+max-width: 50%;
+width: 100%;
+float: left;
+min-height: 378px;
+}
+}
+@media screen and (min-width: 768px) {
+.blogBox .item img {
+height: 152px;
+}
+}
+
+
+.containert {
+width: 270px;
+height: 240px;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: 50% 50%;
+}
+
+.paragraphh{
+margin-bottom:-40px;
+}
+
+
+.uploadv{
+padding:18px;
+border-radius:6px;
+border:0px;
+background-color:skyblue;
+
+}
+
+.video_cards:hover{
+ /*box-shadow: 203px 14px 38px 30px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+
+
+}
+
 {% endblock %}
 
 
 {% block body %}
 
-<div style="padding-top: 5rem;"></div>
-<div class="container">
+<div class="homepage-info-section" style="margin-top:-120px; margin-bottom:-120px">
 
+<div class="container" style="margin-top:0px">
 
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" style="">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Videoblog</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+            <li class="breadcrumb-item">Videoblog</li>
         </ol>
+
+
     </nav>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" style="margin-bottom:90px">
-            <div class="carousel-item active">
-                <img src="{% static 'images/header-bg.jpg' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/header-bg.jpg' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/header-bg.jpg' %}" class="d-block w-100" alt="...">
+    <div class="interior container clearfix">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-1 col-md-12 blogBox"
+                 style="padding-top:-18px; min-width:100%; margin-bottom:30px">
+            <div class="item featured" style="">
+                <img style="object-fit: cover; padding-top:3%; min-height:280px; "
+                     src="{% static 'images/bhanu/bhanu-4.jpg' %}">
+
+                <div class="blogTxt">
+                    <div class="blogCategory">
+                        <a href="/">Business Intelligence</a>
+                    </div>
+                    <h3>
+                        Eu qui dolore altera, saepe molestie accusamus
+                    </h3>
+                    <p class="post_intro hidden-xs paragraphh">
+                        An erant partem albucius quo, ad graece latine atomorum sea, sit dicant laoreet at. Id
+                        has chor...
+                    </p>
+                </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+
+
+        {% for video in videos %}
+        <div class="col-xs-12 col-sm-6 col-md-4 blogBox moreBox video_cards" style="min-width:320px;">
+            <div class="item video_cards" style="">
+                <iframe class="containert"
+                        style="width:100%; border:1px dotted grey; border-radius:8px;"
+                        src="{{video.videolink}}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <div class="blogTxt video_cards">
+                    <div class="blogCategory">
+                        <a href="/">{{video.tag}}</a>
+                        {% if request.user.is_superuser %}
+                        <!--Delete--><a data-toggle="modal" data-target="#deletevideo-{{forloop.counter}}"
+                                        style="float:right"><i
+                            style="font-size:23px; color:red; border-radius:4px; border:1px dotted grey; "
+                            class="fa fa-trash"></i></a>
+                        <!--edit--><a data-toggle="modal" data-target="#editvideo-{{forloop.counter}}"
+                                      style="float:right"><i
+                            style="font-size:23px; color:blue; border-radius:4px; border:1px dotted grey; "
+                            class="fa fa-edit"></i></a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Modal to ask to send answer-->
+                    <!-- Important when modal is used in for loops-->
+
+                    <div class="modal fade" id="editvideo-{{forloop.counter}}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit here</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="post" action="{% url 'delete_edit_videopost' %}">
+                                    {% csrf_token %}
+
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="">Video link</label>
+                                            <input value="{{video.id}}" name="editid" hidden>
+                                            <input required value="{{video.videolink}}" name="link" type="text"
+                                                   class="form-control"
+                                                   placeholder="eg. https://www.youtube.com/Mvdw3d...">
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputCity">Tag</label>
+                                                <input value="{{video.tag}}" required name="tag" type="text"
+                                                       class="form-control"
+                                                       placeholder="Category">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Title</label>
+                                                <input value="{{video.title}}" required name="title" type="text"
+                                                       placeholder="Enter title"
+                                                       class="form-control">
+
+                                            </div>
+                                        </div>
+
+                                        <label>Description of the video</label>
+                                        <textarea required name="description" class="form-control" rows="4"
+                                                  placeholder="Description of the video">{{video.description}}</textarea>
+                                        <div class="modal-footer">
+                                            <button type="submit" name="edit_video" class="uploadv btn btn-primary">
+                                                Save changes
+                                            </button>
+                                            <button type="button" style="background-color:pink"
+                                                    class="uploadv btn btn-secondary"
+                                                    data-dismiss="modal">Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="deletevideo-{{forloop.counter}}" data-backdrop="static"
+                         data-keyboard="false"
+                         tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete video</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{% url 'delete_edit_videopost' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        Are you sure you want to delete the video: <strong style="color:pink">
+                                        {{video.title}}</strong>?
+                                    </div>
+                                    <input value="{{video.id}}" hidden name="deleteid">
+                                    <div class="modal-footer">
+                                        <button type="submit" name="delete_video" class="btn btn-primary"
+                                                style="border:0px; border-radius:4px">Delete
+                                        </button>
+                                        <button type="button" class="btn btn-secondary"
+                                                style="border:0px; border-radius:4px"
+                                                data-dismiss="modal">Back
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>{{video.title}}</h3>
+                    <h5>{{video.timestamp}}</h5>
+                    <p class="post_intro hidden-xs paragraphh"> {{video.description}} </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!--                <div id="loadMore" style="">-->
+        <!--                    <a href="#">Load More</a>-->
+        <!--                </div>-->
+
+        <!-- Button trigger modal -->
     </div>
-    <div class="row events-list">
+    {% if request.user.is_superuser %}
+    <button style="" type="button" class="uploadv btn btn-primary" data-toggle="modal"
+            data-target="#exampleModal">
+        Upload video
+    </button>
 
-
-        <div class="col-12 col-lg-6 single-event" style="margin-top: 80px;">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
-
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">Hotel California in Concert</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
+    <!-- Modal -->
+    <form method="post" action="{% url 'videoblog_video' %}">
+        {% csrf_token %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upload another video</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Video link</label>
+                            <input required name="link" type="text" class="form-control" id="formGroupExampleInput0"
+                                   placeholder="eg. https://www.youtube.com/Mvdw3d...">
                         </div>
 
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
-                    </div>
-                </header>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">Tag</label>
+                                <input required name="tag" type="text" class="form-control" placeholder="Category"
+                                       id="inputCity">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Title</label>
+                                <input required name="title" type="text" placeholder="Enter title"
+                                       class="form-control" id="">
 
-                <div class="entry-content" style="max-width:none">
-                    <p>Vestibulum eget lacus at mauris sagittis varius. Etiam ut venenatis dui. Nullam tellus risust
-                        lacus at mauris sagittis variusut.</p>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-6 single-event">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
-
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">DJ Festival in town</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
+                            </div>
                         </div>
 
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
-                    </div>
-                </header>
-
-                <div class="entry-content" style="max-width:none">
-                    <p>Nullam tellus risust lacus at mauris sagittis variusut.</p>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-6 single-event">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
-
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">U2 Concert in Detroit</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
+                        <label>Description of the video</label>
+                        <textarea required name="description" class="form-control" rows="4"
+                                  placeholder="Description of the video"></textarea>
+                        <div class="modal-footer">
+                            <button type="submit" class="uploadv btn btn-primary">Upload now</button>
+                            <button type="button" style="background-color:pink" class="uploadv btn btn-secondary"
+                                    data-dismiss="modal">Close
+                            </button>
                         </div>
-
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
                     </div>
-                </header>
-
-                <div class="entry-content" style="max-width:none">
-                    <p>Nullam tellus risust lacus at mauris sagittis variusut.</p>
                 </div>
             </div>
         </div>
+    </form>
+    {% endif %}
 
-        <div class="col-12 col-lg-6 single-event">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
+</div>
+</div>
 
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">Summer Festival in Detroit</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
-                        </div>
-
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
-                    </div>
-                </header>
-
-                <div class="entry-content">
-                    <p>Vestibulum eget lacus at mauris sagittis varius. Etiam ut venenatis dui. Nullam tellus risust
-                        lacus at mauris sagittis variusut.</p>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-6 single-event">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
-
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">Costume Festival Detroit</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
-                        </div>
-
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
-                    </div>
-                </header>
-
-                <div class="entry-content" style="max-width:none">
-                    <p>Nullam tellus risust lacus at mauris sagittis variusut.</p>
-                </div>
-
-                <footer class="entry-footer">
-                    <a href="#">Buy Tikets</a>
-                </footer>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-6 single-event">
-            <figure class="events-thumbnail">
-                <a href="#">
-                    <iframe width="560" height="315"
-                            style="min-width:120px; min-height:100x; width:100%; border:2px solid black; border-radius:14px"
-                            src="https://www.youtubed.com/embed/JrO46CdJd9ns" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </a>
-            </figure>
-
-            <div class="event-content-wrap">
-                <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">Hotel California in Concert</a></h2>
-
-                        <div class="event-location"><a href="#">Ford Field 2000 Brush St, Detroit, MI 48226, EE. UU.</a>
-                        </div>
-
-                        <div class="event-date">May 29, 2018 @ 8:00 Pm - May 30, 2018 @ 4:00 Am</div>
-                    </div>
-                </header>
-
-                <div class="entry-content" style="max-width:none">
-                    <p>Vestibulum eget lacus at mauris sagittis varius. Etiam ut venenatis dui. Nullam tellus risust
-                        lacus at mauris sagittis variusut.</p>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-
+<hr>
 </div>
 
 {% endblock %}

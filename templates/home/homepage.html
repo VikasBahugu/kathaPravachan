@@ -1,18 +1,83 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
+
 {% block style %}
 html {
 scroll-behavior: smooth;
 }
+
 #more {
 display: none;
-
 }
 
 body {
 font-family:'Raleway',Arial,monospace;
 }
+
+#more {
+display: none;
+}
+
+.whatsapp{
+display: none;
+color: #1DC143;
+}
+
+.whatsapp:hover, .whatsapp:focus{
+background: #1DC143;
+color: #fff;
+text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+.message_box:hover{
+text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+.whatsapp.activeWhatsapp{
+display: inline-block;
+}
+
+@media only screen and (max-width: 1100px) {
+#what_is_kundali_photo{
+width:200px;
+}
+#about_bhanu_photo{
+min-width:230px;
+}
+#how_kundali_works{
+}
+}
+
+.rotate_animation {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(70%);
+  border-radius: 70%;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+          transition:         transform .5s ease-in-out;
+}
+.rotate_animation:hover {
+  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+@media only screen and (max-width: 767px) {
+#what_is_kundali_photo{
+width:80%;
+margin-left:10%;
+margin-bottom:6%;
+}
+#how_kundali_works{
+width:80%;
+margin-left:12%;
+}
+#about_bhanu_photo{
+margin-left:12%;
+min-width:240px;
+max-width:260px;
+}
+}
+
 
 {% endblock %}
 
@@ -20,63 +85,121 @@ font-family:'Raleway',Arial,monospace;
 {% block body %}
 
 
-<div class="homepage-info-section">
-    <div class="container">
+<div class="homepage-info-section message_box" style="max-width: 900px; margin: auto; padding-top:-10px">
+    <div class="container " style="margin-top:-180px; z-index: 900;">
+        {% if seen_msgs and seen_msgs.kundali_answer|length > 0 %}
+        <!--        <h3 style="position:absolute; margin-bottom:2%; padding-left:2%; padding-top:1%">Message:</h3>-->
+        <div class="jumbotron jumbotron-fluid "
+             style="border-top-right-radius: 4%; z-index:0; position:relative; border-bottom-left-radius:5%; background: #8e9eab;  /* fallback for old browsers */ background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */ background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
+            <div class="container" style="">
+                <img src="{% static 'images/bhanu/bhanu-01.jpg' %}" alt="bhanu photo"
+                     style="float:right; width:90px; object-fit:cover; height:90px; border-radius:100%">
+                <h3 style="color:green">Your query was answered by our expert.</h3>
+                <h6>Posted on {{seen_msgs.timestamp}}</h6>
+                <h2 class="display-5">by Bhanu Prakash</h2>
+                <h4 class="" style="margin-left:5%">To: {{seen_msgs.user}}</h4>
+                <hr>
+                <h5 style="color:orange">Question:</h5>
+                <p class="lead">{{seen_msgs.reason|linebreaks}}</p>
 
-        {% for message in messages %}
-        <div style="margin-top:-40px" id="message-dialog">
-            <h3>Message</h3>
+                <h5 style="color:orange">Reply from expert:</h5>
+                <p class="lead">{{seen_msgs.kundali_answer|linebreaks}}</p>
 
-            <div class="toast" data-autohide="false" style="margin-bottom:70px">
-                <div class="toast-header">
-                    <strong class="mr-auto text-primary">1 Message received</strong>
-                    <small class="text-muted">5 second ago</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                </div>
-                <div class="toast-body" style="
-                                        {% if message.tags == 'success' %}
-                                            color:green
-                                        {% elif message.tags == 'warning' %}
-                                            color:orange
-                                        {% elif message.tags == 'error' %}
-                                            color:red
-                                        {% endif %}">
-                    {{message}}
-                </div>
+                <button type="button" data-toggle="popover" title="Delete your query" data-placement="bottom"
+                        data-html="true" data-content="Are you sure you want to delete now?<br><strong><a class='btn btn-success rounded bg-light' href='{% url 'delete_answered_question' %}'>Delete now</a></strong>">
+                    <i style="font-size:43px; color:red; border-radius:4px;" class="fa fa-trash"></i>
+                </button>
+
+                <script>
+                    jQuery(function () {
+                      jQuery('[data-toggle="popover"]').popover()
+                    })
+                </script>
+
+                <a class="btn btn-primary"
+                   style="border-radius:10px; padding:4px; background-color:#3BB1F6; color:white;"
+                   href="#accordionExample" role="button"><i style="font-size:43px; color:blue; "
+                                                             class="fa fa-edit"></i></a>
+                <hr>
+                <p style="padding-left:5%; padding-right:4%; margin-top:0px; margin-bottom:-20px; color:red; font-size:23px">
+                    Note:- <span style="font-sixe:21px">If you have sent us another question, then the updated answer of your question will be displayed once our expert answer them up.</span>
+                </p>
             </div>
         </div>
-        {% endfor %}
+        <br>
 
-        <script>
-            $(document).ready(function(){
-              $('.toast').toast('show');
-            });
+        <br><br><br>
+        {% endif %}
 
 
-        </script>
-
-        <div class="sidebar-box">
-            <div class="row">
+        <div class="sidebar-box" style="margin-top:-130px;">
+            <div class="row" style="background-color:white">
                 <div class="col-12 col-md-4 col-lg-5">
                     <figure>
-                        <img src="{% static 'images/logo-2.png' %}" alt="logo" align="right">
+                        <img src="{% static 'images/bhanu/bhanu-1.jpg' %}" id="about_bhanu_photo" alt="bhanu astrology"
+                             style="width:270px; border-radius:100%"
+                             align="center">
                     </figure>
                 </div>
 
+
                 <div class="col-12 col-md-8 col-lg-7">
                     <header class="entry-header">
-                        <h2 class="entry-title">What do we offer for free? / <span
-                                style="font-weight: 200; font-size: 42px;"> क्या क्या करते ह?</span></h2>
+                        <h1 class="entry-title" style="font-size:210%">About Bhanu-Astrology?<br>
+                            <span style="font-size:23px"><a alt="Whatsapp" href="whatsapp://send"
+                                                            data-text="Hi, welcome to Bhanu-Astrology. Bhanu Prakash is a certified astrologer, check out about him to know more. Here you will find about your Astrology and much more. Reach out to us here."
+                                                            data-href="http://www.bhanuastrology.com. Text us at 9837937606 and talk to us directly."
+                                                            class="whatsapp wa_btn"><span
+                                    class="ion-social-whatsapp"></span><i style="font-size:33px; margin-right:5spx;"
+                                                                          class="fa fa-whatsapp"></i> Whatsapp share</a></span>
+                            <span style="font-weight: 200; font-size: 38px;"><br> भानु-एस्ट्रोलॉजी के बारे में</span>
+                        </h1>
+
+
+                        <script>
+                                waShBtn = function() {
+                              if( this.isIos === true ) {
+                                var b = [].slice.call( document.querySelectorAll(".wa_btn") );
+                                for (var i = 0; i < b.length; i++) {
+                                  var t = b[i].getAttribute("data-text");
+                                  var u = b[i].getAttribute("data-href");
+                                  var o = b[i].getAttribute("href");
+                                  var at = "?text=" + encodeURIComponent( t );
+                                  if (t) {
+                                      at += "%20%0A";
+                                  }
+                                  if (u) {
+                                      at += encodeURIComponent( u );
+                                  } else {
+                                      at += encodeURIComponent( document.URL );
+                                  }
+                                  b[i].setAttribute("href", o + at);
+                                  b[i].setAttribute("target", "_top");
+                                  b[i].setAttribute("target", "_top");
+                                  b[i].className += ' activeWhatsapp';
+                                }
+                              }
+                            }
+                            waShBtn.prototype.isIos = ((navigator.userAgent.match(/Android|iPhone/i) && !navigator.userAgent.match(/iPod|iPad/i)) ? true : false);
+                            var theWaShBtn = new waShBtn();
+
+
+
+                        </script>
                     </header>
-                    <div class="entry-content">
-                        <p>Vestibulum eget lacus at mauris sagittis varius. Etiam ut venenatis dui. Nullam tellus risus,
-                            pellentesque at facilisis et, scelerisque sit amet metus. Duis vel semper turpis, ac tempus
-                            libero. Maecenas id ultrices risus. Aenean nec ornare ipsum, lacinia volutpat urna. Maecenas
-                            ut
-                            aliquam purus, quis sodales dolor.</p>
+                    <div class="entry-content" style="margin-bottom:0px;">
+                        <p style="color:black; background-image:url('{% static 'images/bhanu-abo.jpg' %}');">Hello
+                            everyone, before I speak about what I do, I want to introduce myself. I am Bhanu Pratab
+                            Uniyal, an astrologer. Currently I am persuing my P.hd.
+
+                        </p>
                     </div>
-                    <footer class="entry-footer">
-                        <a href="#" class="btn gradient-bg">Read More</a>
+                    <footer class="entry-footer" style="margin-top:-20px">
+                        {% if user.is_authenticated or request.user.is_superuser %}
+                        <a href="{% url 'profile' %}" class="btn gradient-bg">Profile</a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn gradient-bg">Login</a>
+                        {% endif %}
 
                         {% if user.is_authenticated or request.user.is_superuser %}
                         <a href="#accordionExample" class="btn dark">Talk now</a>
@@ -88,32 +211,42 @@ font-family:'Raleway',Arial,monospace;
                 </div>
             </div>
 
-
-            <div class="row" style="margin-top: 120px;">
+            <hr>
+        </div>
+        <div class="homepage-info-section"
+             style="  max-width: 800px; margin: auto; border-radius:2px; background-color:#F2F2F2; padding:1%">
+            <div class="row" style="margin-top: 80px;">
                 <div class="col-12 col-md-4 col-lg-5">
                     <figure>
-                        <img src="{% static 'images/kundali-photo.jpg' %}" style="border-radius:2rem" alt="logo">
+                        <!--                        <img src= style="width:120px; height:120px">-->
+                        <img src="{% static 'gif/kundali1.gif' %}" id="what_is_kundali_photo"
+                             style="margin-top:27px; max-width:300px"
+                             alt="kundali photo">
                     </figure>
                 </div>
 
 
-                <div class="col-12 col-md-8 col-lg-7">
+                <div class="col-12 col-md-8 col-lg-7" style="margin-top:-30px">
                     <header class="entry-header">
-                        <h2 class="entry-title">What is 'Kundali'? / <span style="font-weight: 100; font-size: 32px;"> कुंडली क्या है? </span>
+                        <h2 class="entry-title" style="font-size:210%">What is 'Kundali'?<br><span
+                                style="font-weight: 100; font-size: 32px;"> कुंडली क्या है? </span>
                         </h2>
                     </header>
                     <div class="entry-content">
                         <p>
                             Kundli also known as horoscope, represents the position of the planets at the time of your
                             birth. Kundli is used to interpret celestial influence in your life. Accurate birth date,
-                            time
-                            and place are an important factor in Vedic Astrology as it helps to generate accurate
-                            Kundli.
+                            time and place are an important factor in Vedic Astrology as it helps to generate accurate
+                            Kundli.<br>
                             Kundli generation is the building block of predictive astrology. There are various types of
                             options to generate a Kundli such as Parashari, Jaimini or KP Kundli along with different
                             Ayanamsa. We at Vedic Rishi, provide you with all the options to choose and generate your
-                            own
-                            accurate Kundli.
+                            own accurate Kundli.
+                        <hr>
+                        जन्मकुंडली से अभिप्राय: एक निश्चित समय में आकाशमंडल में ग्रहों का खिंचा गया एक फोटॊ है इसे इस
+                        प्रकार भी कहा जा सकता है कि वास्तव में जन्म कुंडली किसी बालक या अन्य किसी सजीव वस्तु के जन्म के
+                        समय का नक्शा है। ... १२ राशियां और ९ ग्रहों के ३६० अंश के विस्तार निरुपण को भचक्र का नाम दिया
+                        जाता है।
                         </p>
                     </div>
                 </div>
@@ -122,199 +255,255 @@ font-family:'Raleway',Arial,monospace;
             </div>
 
 
-            <div style="padding-top:80px">
-                <h3 style="padding-left:100px; padding-bottom:80px">There are 12 total rashis.</h3>
+            <script>
+                function fun_to_view_all_rashi() {
+                  var dots = document.getElementById("dots");
+                  var moreText = document.getElementById("more");
+                  var btnText = document.getElementById("myBtn");
+
+                  if (dots.style.display === "none") {
+                    dots.style.display = "inline";
+                    btnText.innerHTML = "Read more";
+                    moreText.style.display = "none";
+                  }
+                  else {
+                    dots.style.display = "none";
+                    btnText.innerHTML = "Read less";
+                    moreText.style.display = "inline";
+                  }
+                }
+
+
+
+
+
+
+
+
+
+            </script>
+
+            <!-- Modal -->
+            <div class="modal fade" id="autoSignupLogin" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Login/Signup</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"
+                             style="background-color: #FBAB7E; background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);">
+                            I hope you are doing good. Login or signup for free to continue to the page. By doing so you
+                            can do the following:-
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Check your horoscope</li>
+                                <li class="list-group-item">Talk to our expert for free</li>
+                                <li class="list-group-item">Ask questions related to horoscope</li>
+                                <li class="list-group-item">Update your profile for even faster interaction</li>
+                                <li class="list-group-item" style="color:green">Contribute us</li>
+                                <!--                                <li class="list-group-item" style="color:green"></li>-->
+                            </ul>
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'login' %}">
+                                <button type="button" class="btn btn-secondary">Login</button>
+                            </a>
+                            <a href="{% url 'signup' %}">
+                                <button type="button" class="btn btn-primary">Signup</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if not user.is_authenticated or not request.user.is_superuser %}
+            <script>
+
+                setTimeout(function() {
+                        $('#autoSignupLogin').modal();
+                    }, 16000);
+
+
+
+
+
+            </script>
+            {% endif %}
+
+            {% for rashi in 12_rashi %}
+            <div id="today_horoscope"
+                 style="padding-top:80px; border:1px dotted grey; border-radius:4px; border-bottom: none_;">
+                <h3 style="padding-left:5%; padding-bottom:80px">Today's horoscope
+                    <span class="badge badge-primary">New</span>
+                </h3>
+
                 <ul class="list-unstyled">
 
                     <li class="media">
                         <div class="media-body align-self-center mr-3">
                             <h5 class="mt-0 mb-1" style="margin-left:80px">Aries or Maish (मैश) </h5>
-                            <img src="{% static 'images/rashi/1_aries.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            <img src="{% static 'images/rashi/aries.jpg' %}" style="float:left; border-radius:100%"
+                                 class="mr-3 rotate_animation"
+                                 alt="maish horoscope today">
+                            {{rashi.maish}}
                         </div>
                     </li>
                     <hr>
                     <li class="media my-4">
                         <div class="media-body align-self-center mr-3">
                             <h5 style="margin-left:80px" class="mt-0 mb-1">Taurus or Vrish (वृष)</h5>
-                            <img src="{% static 'images/rashi/2_taurus.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            <img src="{% static 'images/rashi/taurus.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                 alt="vrish horoscope today">
+                            {{rashi.vrish}}
                         </div>
                     </li>
                     <hr>
                     <li class="media">
                         <div class="media-body align-self-center mr-3">
                             <h5 style="margin-left:80px" class="mt-0 mb-1">Gemini or Mithun (मिथुन) </h5>
-                            <img src="{% static 'images/rashi/3_gemini.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            <img src="{% static 'images/rashi/gemini.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                 alt="mithun horoscope today">
+                            {{rashi.mithun}}
                         </div>
                     </li>
 
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1"> Cancer or Kark (कर्क)</h5>
-                            <img src="{% static 'images/rashi/4_cancer.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Leo or Singh (सिंह)</h5>
-                            <img src="{% static 'images/rashi/5_leo.jpg' %}" style="float:left" class="mr-3" alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1" style="margin-top:30px">Virgo or Kanya
-                                (कन्या)</h5>
-                            <img src="{% static 'images/rashi/6_virgo.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Libra or Tula (तुला)</h5>
-                            <img src="{% static 'images/rashi/7_libra.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Scorpio or Vrishchik (वृश्चिक)</h5>
-                            <img src="{% static 'images/rashi/8_scorpio.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
+                    <span id="dots" style="margin-left:49%">.....</span>
+                    <br>
+                    <button onclick="fun_to_view_all_rashi()" style="float:left; padding:8px;" class="pl-3 pr-3"
+                            id="myBtn">Read more
+                    </button>
 
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1"> Sagittarius or Dhanu (धनु)</h5>
-                            <img src="{% static 'images/rashi/9_sagittarius.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
+                    <span id="more">
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1"> Cancer or Kark (कर्क)</h5>
+                                <img src="{% static 'images/rashi/cancer.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="kark horoscope today">
+                                {{ rashi.kark|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Leo or Singh (सिंह)</h5>
+                                <img src="{% static 'images/rashi/leo.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="singh horoscope today">
+                                {{ rashi.singh|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" id="kanya" class="mt-0 mb-1" style="margin-top:30px">Virgo or Kanya
+                                    (कन्या)</h5>
+                                <img src="{% static 'images/rashi/virgo.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="kanya horoscope today">
+                                {{ rashi.kanya|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Libra or Tula (तुला)</h5>
+                                <img src="{% static 'images/rashi/libra.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="tula horoscope today">
+                                {{ rashi.tula|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Scorpio or Vrishchik (वृश्चिक)</h5>
+                                <img src="{% static 'images/rashi/scorpio.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="vrishchik horoscope today">
+                                {{ rashi.vrishchik|linebreaks }}
+                            </div>
+                        </li>
 
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Capricorn or Makar (मकर)</h5>
-                            <img src="{% static 'images/rashi/11_aquarius.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Aquarius or Kumbh (खुम्ब)</h5>
-                            <img src="{% static 'images/rashi/12_pisces.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="media" style="margin-top:40px">
-                        <div class="media-body align-self-center mr-3">
-                            <h5 style="margin-left:80px" class="mt-0 mb-1">Pisces or Meen (मीन)</h5>
-                            <img src="{% static 'images/rashi/10_capricorn.jpg' %}" style="float:left" class="mr-3"
-                                 alt="...">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras
-                            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                            nisi
-                            vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </li>
-                    <hr>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1"> Sagittarius or Dhanu (धनु)</h5>
+                                <img src="{% static 'images/rashi/sagittarius.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="dhanu horoscope today">
+                                {{ rashi.dhanu|linebreaks }}
+                            </div>
+                        </li>
+
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Capricorn or Makar (मकर)</h5>
+                                <img src="{% static 'images/rashi/aquarius.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="makar horoscope today">
+                                {{ rashi.makar|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Aquarius or Kumbh (खुम्ब)</h5>
+                                <img src="{% static 'images/rashi/pisces.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="kumbh horoscope today">
+                                {{ rashi.kumbh|linebreaks }}
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media" style="margin-top:40px">
+                            <div class="media-body align-self-center mr-3">
+                                <h5 style="margin-left:80px" class="mt-0 mb-1">Pisces or Meen (मीन)</h5>
+                                <img src="{% static 'images/rashi/capricorn.jpg' %}" style="float:left" class="mr-3 rotate_animation"
+                                     alt="meen horoscope today">
+                                {{ rashi.meen|linebreaks }}
+                            </div>
+                        </li>
+                        <button onclick="fun_to_view_all_rashi()" style="float:left"
+                                class="pl-3 pr-3">Read less</button>
+                        <hr>
+                    </span>
+
                 </ul>
             </div>
-
+            {% endfor %}
 
             <div class="row" style="margin-top: 120px;">
 
                 <div class="col-12 col-md-4 col-lg-5">
                     <figure>
-                        <img src="{% static 'images/kundali-work.png' %}" alt="logo">
+                        <img src="{% static 'images/kundali-work.png' %}" alt="logo" id="how kundali works"
+                             style="min-width:300px">
                     </figure>
                 </div>
 
                 <div class="col-12 col-md-8 col-lg-7">
                     <header class="entry-header">
-                        <h2 class="entry-title">How does Kundali work? / <span
-                                style="font-weight: 100; font-size: 32px;"> कुंडली क्या है? </span>
+                        <h2 class="entry-title" style="font-size:210%">How does Kundali work?<br><span
+                                style="font-weight: 100; font-size: 32px;"> कुंडली कैसे काम करती है? </span>
                         </h2>
                     </header>
 
                     <div class="entry-content">
                         <p>
                             At the date of birth, time and place, there is specific astronomical pattern in the heavens
-                            or
-                            sky. This sky model is recorded from a distinct geographical point. This documentation of
-                            planet-earth-sky pattern at the time of your birth is known as Kundli Chart. On the kundli,
-                            planets and their signs, house divisions and ascendant or rising sign is indicated. To
-                            interpret
-                            or analyse this kundli, four steps are given as follows.
+                            or sky. This sky model is recorded from a distinct geographical point. This documentation of
+                            planet-earth-sky pattern at the time of your birth is known as Kundli Chart.
+                            <br>
+                            On the kundli, planets and their signs, house divisions and ascendant or rising sign is
+                            indicated. To
+                            interpret or analyse this kundli, four steps are given as follows.
+                            <br>
+
+
                         </p>
                     </div>
+
+                </div>
+                <div class="container">
+
                 </div>
             </div>
 
@@ -323,9 +512,10 @@ font-family:'Raleway',Arial,monospace;
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block btn gradiant text-left" type="button"
+                            <button class="btn btn-link btn-block btn gradiant text-left"
+                                    style="text-decoration:none; background-color:skyblue" type="button"
                                     data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="coldlapseOne">
                                 Call us today!<span class="badge badge-primary">Free</span>
                             </button>
                         </h2>
@@ -341,7 +531,7 @@ font-family:'Raleway',Arial,monospace;
                                     <img src="{% static 'images/bhanu/bhanu-1.jpg' %}"
                                          style="width:40px; margin-left:13px; height:40px; float:right"
                                          class="card-img-top"
-                                         alt="...">
+                                         alt="bhanu prokash thoughts">
                                     Quote
                                 </div>
                                 <div class="card-body">
@@ -367,60 +557,77 @@ font-family:'Raleway',Arial,monospace;
                                     <li class="list-group-item">We have an expert for you.
                                     </li>
                                     <li class="list-group-item">
-                                        <button class="btn gradient-bg" style="float: left;"><span
-                                                style="color:white; font-size:18px"><i class="fa fa-phone"
-                                                                                       aria-hidden="true"></i> Call now</span>
-                                        </button>
+                                        <a href="tel:9837937606">
+                                            <button class="btn gradient-bg" style="float: left; margin-top:9px">
+                                            <span style="color:white; font-size:18px"><i class="fa fa-phone"
+                                                                                         aria-hidden="true"></i>
+                                                Call today
+                                            </span>
+                                            </button>
+
+                                        </a>
 
 
-                                        <div style="margin-top:30px; float:left"></div>
-                                        <button class="btn gradient-bg" style="float:left"><span
-                                                style="color:white; font-size:18px"><i class="fa fa-whatsapp"
-                                                                                       aria-hidden="true"></i> Whatsapp</span>
-                                        </button>
+                                        <a href="https://api.whatsapp.com/send?phone=919837937606&text=Dear Bhanu Prakash, I found you from www.bhanuastrology.com, Can we talk?"
+                                           target="_blank">
+                                            <button class="btn gradient-bg" style="margin-top:9px; float:left">
+                                            <span style="color:white; font-size:18px"><i class="fa fa-whatsapp"
+                                                                                         aria-hidden="true"></i>
+                                                Whatsapp
+                                            </span>
+                                            </button>
+                                        </a>
 
                                     </li>
-                                    <div style="color:blue"><i class="fa fa-check-square"></i> Call us at <a
-                                            style="font-size:24px">+91-7895579330</a> and get full support.
-                                    </div>
-
                                 </ul>
+                                <div style="color:blue; font-size:18px">
+                                    <i class="fa fa-check-square"></i>
+                                    If both the above buttons of contact are not working, then call us at this
+                                    number and you can send a text message here.<br>
+                                    <a href="tel:9837937606" style="font-size:19px">+91-9837937606</a> or
+                                    <a href="tel:8077311368" style="font-size:19px"> +91-8077311368</a>
+                                    and get telephonic support.
+                                </div>
+
                             </div>
 
 
                         </div>
                     </div>
                 </div>
+
+
                 <div class="card">
                     <div class="card-header" id="headingTwo">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button"
+                            <button class="btn btn-link btn-block text-left collapsed"
+                                    style="text-decoration:none; background-color:#A7BFE8" type="button"
                                     data-toggle="collapse"
                                     data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Directly share kundali<a href="#" class="badge badge-warning"
-                                                         style="margin-left:4px">dev</a>
+                                Directly share kundali<a class="badge badge-success"
+                                                         style="margin-left:4px">New</a>
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                         data-parent="#accordionExample">
                         <div class="card-body">
 
 
-                            <form method="post" enctype="multipart/form-data" style="background-image:url('{% static 'images/stars.jpg' %}"
+                            <form method="post" enctype="multipart/form-data"
+                                  style="   background-image:url('{% static 'images/stars.png' %}'"
                                   action="{% url 'sharedkundali' %}">
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
-                                        <label for="inputCity">Name*</label>
+                                        <label>Name*</label>
                                         <input type="text" class="form-control" required name="name"
-                                               placeholder="Enter your name"
-                                               id="inputCity">
+                                               placeholder="Enter your name">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="inputCity">Date of birth*</label>
+                                        <label>Date of birth*</label>
                                         <input type="date" class="form-control" required name="dob"
-                                               placeholder="Your born date"
-                                               id="inputCity">
+                                               placeholder="Your born date">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputZip">Phone</label>
@@ -437,23 +644,26 @@ font-family:'Raleway',Arial,monospace;
                                     <label for="inputAddress">What do you want to know?</label>
 
                                     <textarea class="form-control" rows="5" required name="reason" id="inputAddress"
-                                              placeholder="Why do you have in mind?"></textarea>
+                                              placeholder="Tell us your rashi and what do you want to know?"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputAddress2">Upload your kundali</label>
+                                    <label style="">
+                                        Upload your kundali (<span style="color:red">skip if you want.</span>)
+                                    </label><br>
 
-
-                                    <input type='file' required name="kundaliphoto"
-                                           onchange="readURL_pic(this);"/>
+                                    <label style="border:1px dotted brown; padding:2%; ">
+                                        Choose image<br>
+                                        <img src="" id="kundaliphoto"
+                                             style="border-radius:10%; margin-top:10px; width:700px;height:700px; object-fit:cover"
+                                             alt="kundali photo"/><br>
+                                        <input hidden type='file' name="kundaliphoto"
+                                               onchange="readURL_pic(this);"/>
+                                    </label>
                                     <br>
-                                    <img src="{{from_profile.photo.url}}" id="kundaliphoto"
-                                         style="border-radius:10%; margin-top:10px; width:700px;height:700px"
-                                         alt="Image not available" src="#"/>
 
                                 </div>
-                        </div>
 
-                        <script>
+                                <script>
                          function readURL_pic(input) {
                             if (input.files && input.files[0]) {
                                 var reader = new FileReader();
@@ -469,45 +679,56 @@ font-family:'Raleway',Arial,monospace;
                          }
 
 
-                        </script>
+
+                                </script>
 
 
-                        <div class="form-group">
-                            <div class="form-check" style="margin-left:30px">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" style="margin-left:-30px; color:red" for="gridCheck">
-                                    Agree to our <a href="#">terms and conditions</a> to proceed further?
-                                </label>
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="form-check" style="margin-left:1%">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label"
+                                               style="margin-left:0px; color:red; padding-right:0%;" for="gridCheck">
+                                            Agree to our <a href="{% url 'terms_of_service' %}">terms and conditions</a>
+                                            to proceed further?
+                                        </label>
+                                    </div>
+                                </div>
 
 
-                        <button style="margin-left:20px" type="submit" id="btncheck" class="btn btn-primary">Send to our
-                            astrologer
-                        </button>
-                        <br>
-                        <div style="padding-left:20px">
-                            <span style="color:#FF6B6B; font-size:25px">Please call +91-7895579330 with in an hour.</span>
-                        </div>
+                                <button style="margin-left:20px" type="submit" id="btncheck" class="btn btn-primary">
+                                    Send to our
+                                    astrologer
+                                </button>
+                                <br>
+                                <div style="padding-left:1%">
+                                    <span style="color:#FF6B6B; font-size:17px">Please call
+                                        <a href="tel:9837937606" style="font-size:22px">+91-9837937606</a> or
+                                        <a href="tel:8077311368" style="font-size:22px"> +91-8077311368</a>
+                                        with in an hour.</span>
+                                </div>
 
-                        <script>
+                                <script>
                             $('#gridCheck').change(function () {
                             $('#btncheck').prop("disabled", !this.checked);
                             }).change()
 
-                        </script>
-                        </form>
 
 
+                                </script>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+
         <div class="card">
             <div class="card-header" id="headingThree">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                    <button class="btn btn-link btn-block text-left collapsed"
+                            style="text-decoration:none; background-color:#43C6AC" type="button" data-toggle="collapse"
                             data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         More
                     </button>
@@ -531,19 +752,115 @@ font-family:'Raleway',Arial,monospace;
             </div>
         </div>
     </div>
-
-
 </div>
 
-
-<div class="homepage-featured-events">
+<section class="pb-1">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="featured-events-wrap flex flex-wrap justify-content-between">
+            <div class="col-lg-10 col-xl-8 mx-auto">
+                <div class="p-3 mr-4 bg-white shadows rounded">
+                    <!-- Bootstrap carousel-->
+                    <div class="carousel slide" id="carouselExampleIndicators" data-ride="carousel">
+                        <!-- Bootstrap carousel indicators [nav] -->
+                        <ol class="carousel-indicators mb-0">
+                            <li class="active" data-target="#carouselExampleIndicators" data-slide-to="0"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+
+
+                        <center>
+                            <h3 style="background-image:url('{% static 'images/bhanu-abo.jpg' %}');">Here's what people
+                                say about us:</h3>
+                        </center>
+                        <!-- Bootstrap inner [slides]-->
+                        <div class="carousel-inner px-5 pb-1">
+                            <!-- Carousel slide-->
+                            <div class="carousel-item active">
+                                <div class="media">
+                                    <div class="media-body ml-3">
+                                        <center><img class="rounded-circle img-thumbnail"
+                                                     src="https://res.cloudinary.com/mhmd/image/upload/v1579676165/avatar-1_ffutqr.jpg"
+                                                     alt="" width="75"></center>
+                                        <blockquote class="blockquote border-0 p-0">
+                                            <p class="text-center font-italic lead"><i
+                                                    class="fa fa-quote-left mr-3 text-success"></i>Bhanu is really nice
+                                                and sweet to people, met him once. He is optimistic and engaging.</p>
+                                            <footer class="blockquote-footer text-right"><i>Vivek</i>
+                                            </footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Carousel slide-->
+                            <div class="carousel-item">
+                                <div class="media">
+                                    <div class="media-body ml-3">
+                                        <center><img class="rounded-circle img-thumbnail"
+                                                     src="https://res.cloudinary.com/mhmd/image/upload/v1579676165/avatar-3_hdxocq.jpg"
+                                                     alt="" width="75"></center>
+                                        <blockquote class="blockquote border-0 p-0">
+                                            <p class="text-center font-italic lead"><i
+                                                    class="fa fa-quote-left mr-3 text-success"></i>Lorem ipsum dolor sit
+                                                amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                                labore et dolore magna aliqua.</p>
+                                            <footer class="blockquote-footer text-right">Someone famous in
+                                            </footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Carousel slide-->
+                            <div class="carousel-item">
+                                <div class="media">
+                                    <div class="media-body ml-3">
+                                        <center><img class="rounded-circle img-thumbnail"
+                                                     src="https://res.cloudinary.com/mhmd/image/upload/v1579676165/avatar-2_gibm2s.jpg"
+                                                     alt="" width="75"></center>
+                                        <blockquote class="blockquote border-0 p-0">
+                                            <p class="text-center font-italic lead"><i
+                                                    class="fa fa-quote-left mr-3 text-success"></i>Lorem ipsum dolor sit
+                                                amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                                labore et dolore magna aliqua.</p>
+                                            <footer class="blockquote-footer text-right">Bhanu
+                                            </footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Bootstrap controls [dots]-->
+                        <a class="carousel-control-prev width-auto" href="#carouselExampleIndicators" role="button"
+                           data-slide="prev">
+                            <i class="fa fa-angle-left text-dark text-lg"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next width-auto" href="#carouselExampleIndicators" role="button"
+                           data-slide="next">
+                            <i class="fa fa-angle-right text-dark text-lg"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="homepage-featured-events events_on_months">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 events_on_months">
+                <div class="featured-events-wrap events_on_months flex flex-wrap justify-content-between">
                     <div class="event-content-wrap positioning-event-1">
                         <figure>
-                            <a href="#"><img src="{% static 'images/bhanu/bhanu-01.jpg' %}" alt="1"></a>
+                            <a href="#"><img src="{% static 'images/bhanu/bhanu-01.jpg' %}"
+                                             style=" max-width:364px; max-heigth:402px" alt="bhanu astrology team"></a>
                         </figure>
 
                         <header class="entry-header">
@@ -555,11 +872,12 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-2">
                         <figure>
-                            <a href="#"><img src="{% static 'images/bhanu/bhanu-07.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/bhanu/bhanu-07.jpg' %}"
+                                             style=" max-width:266px; max-heigth:298px" alt="bhanu astrology team"></a>
                         </figure>
 
                         <header class="entry-header">
-                            <h3 class="entry-title">Street art fest</h3>
+                            <h3 class="entry-title">Bhagwat at Rishikesh</h3>
 
                             <div class="posted-date">November 28</div>
                         </header>
@@ -567,11 +885,12 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-3">
                         <figure>
-                            <a href="#"><img src="{% static 'images/bhanu/bhanu-09.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/bhanu/bhanu-09.jpg' %}"
+                                             style="max-width:260px; max-heigth:298px" alt="bhanu astrology team"></a>
                         </figure>
 
                         <header class="entry-header">
-                            <h3 class="entry-title">Anabelle in concert</h3>
+                            <h3 class="entry-title">Bhagwat-1</h3>
 
                             <div class="posted-date">August 28</div>
                         </header>
@@ -579,29 +898,34 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-4 half">
                         <figure>
-                            <a href="#"><img src="{% static 'images/events-in-london.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/events-in-london.jpg' %}"
+                                             alt="bhanu astrology events"></a>
                         </figure>
                     </div>
 
                     <div class="event-content-wrap positioning-event-5 half">
                         <figure>
-                            <a href="#"><img src="{% static 'images/check-july.png' %}" style="margin-top:20px" alt=""></a>
+                            <a href="#"><img src="{% static 'images/check-july.png' %}" style="margin-top:20px"
+                                             alt="bhanu astrology events"></a>
                         </figure>
                     </div>
 
                     <div class="event-content-wrap positioning-event-6 half">
                         <figure>
-                            <a href="#"><img src="{% static 'images/summer-festivals.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/summer-festivals.jpg' %}"
+                                             alt="bhanu astrology events"></a>
                         </figure>
                     </div>
 
                     <div class="event-content-wrap positioning-event-7">
                         <figure>
-                            <a href="#"><img src="{% static 'images/bhanu/bhanu-010.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/bhanu/bhanu-010.jpg' %}"
+                                             style="max-width:260px; max-heigth:298px" alt="bhanu astrology events"></a>
                         </figure>
+                        *
 
                         <header class="entry-header">
-                            <h3 class="entry-title">90’s Disco Night</h3>
+                            <h3 class="entry-title">Bhagwat katha</h3>
 
                             <div class="posted-date">August 28</div>
                         </header>
@@ -609,11 +933,12 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-8">
                         <figure>
-                            <a href="#"><img src="{% static 'images/bhanu/bhanu-05.jpg' %}" alt="1"></a>
+                            <a href="#"><img src="{% static 'images/bhanu/bhanu-05.jpg' %}"
+                                             style="max-width:260px; max-heigth:298px" alt="bhanu astrology events"></a>
                         </figure>
 
                         <header class="entry-header">
-                            <h3 class="entry-title">Modern Ballet</h3>
+                            <h3 class="entry-title">Marine Drive</h3>
 
                             <div class="posted-date">August 25</div>
                         </header>
@@ -621,11 +946,11 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-9">
                         <figure>
-                            <a href="#"><img src="{% static 'images/smoke.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/div-bg.jpg' %}" alt="bhanu astrology events"></a>
                         </figure>
 
                         <header class="entry-header">
-                            <h3 class="entry-title">Smoke show</h3>
+                            <h3 class="entry-title">More comming up</h3>
 
                             <div class="posted-date">August 28</div>
                         </header>
@@ -633,13 +958,14 @@ font-family:'Raleway',Arial,monospace;
 
                     <div class="event-content-wrap positioning-event-10 half">
                         <figure>
-                            <a href="#"><img src="{% static 'images/summer-festival.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/summer-festival.jpg' %}"
+                                             alt="bhanu astrology events"></a>
                         </figure>
                     </div>
 
                     <div class="event-content-wrap positioning-event-11 half">
                         <figure>
-                            <a href="#"><img src="{% static 'images/autumn.jpg' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/autumn.jpg' %}" alt="bhanu astrology events"></a>
                         </figure>
                     </div>
                 </div>
@@ -652,18 +978,22 @@ font-family:'Raleway',Arial,monospace;
     <div class="container">
         <div class="row">
             <div class="next-events-section-header">
-                <h2 class="entry-title">Our next events</h2>
-                <p>Vestibulum eget lacus at mauris sagittis varius. Etiam ut venenatis dui. Nullam tellus risus,
-                    pellentesque at facilisis et, scelerisque sit amet metus. Duis vel semper turpis, ac tempus libero.
-                    Maecenas id ultrices risus. Aenean nec ornare ipsum, lacinia.</p>
+                <h2 class="entry-title">Image gallery</h2>
+                <p>This image gallery in future will show our permanent members followed by how much they are active
+                    with us. It
+                    is fun when we interact and share knoledge. So, if you also want your photo to be posted here,
+                    please signup today and become an
+                    active member.</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="  max-width: 800px; margin: auto;">
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="next-event-wrap">
                     <figure>
-                        <a href="#"><img src="{% static 'images/aa/pexels-photo-551590.jpeg' %}" alt="1"></a>
+                        <a href="#"><img src="{% static 'images/bhanu/bhanu-01.jpg' %}"
+                                         style="width:100%; height:340px; object-fit:cover"
+                                         alt="bhanu astrology events"></a>
 
                         <div class="event-rating">8.9</div>
                     </figure>
@@ -685,7 +1015,8 @@ font-family:'Raleway',Arial,monospace;
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="next-event-wrap">
                     <figure>
-                        <a href="#"><img src="{% static 'images/next1.jpg' %}" alt="1"></a>
+                        <a href="#"><img src="{% static 'images/bhanu/bhanu-2.jpg' %}"
+                                         style="width:100%; height:340px; object-fit:cover" alt="bhanu prakash events"></a>
 
                         <div class="event-rating">7.9</div>
                     </figure>
@@ -707,7 +1038,8 @@ font-family:'Raleway',Arial,monospace;
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="next-event-wrap">
                     <figure>
-                        <a href="#"><img src="{% static 'images/aa/pexels-photo-551590.jpeg' %}" alt="1"></a>
+                        <a href="#"><img src="{% static 'images/bhanu/bhanu-3.jpg' %}"
+                                         style="width:100%; height:340px; object-fit:cover" alt="bhanu prakash events"></a>
 
                         <div class="event-rating">9.9</div>
                     </figure>
@@ -727,7 +1059,8 @@ font-family:'Raleway',Arial,monospace;
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="next-event-wrap">
                     <figure>
-                        <a href="#"><img src="{% static 'images/aa/spirit.jpg' %}" alt="1"></a>
+                        <a href="#"><img src="{% static 'images/bhanu/bhanu-6.jpg' %}"
+                                         style="width:100%; height:340px; object-fit:cover" alt="bhanu prakash events"></a>
 
                         <div class="event-rating">9.9</div>
                     </figure>
@@ -749,30 +1082,24 @@ font-family:'Raleway',Arial,monospace;
     </div>
 </div>
 
+
+
 <div class="homepage-regional-events">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <header class="regional-events-heading entry-header flex flex-wrap justify-content-between align-items-center">
-                    <h2 class="entry-title">Events in New York</h2>
-
-                    <div class="select-location">
-                        <select>
-                            <option>New York</option>
-                            <option>California</option>
-                            <option>South Carolina</option>
-                        </select>
-                    </div>
+                    <h2 class="entry-title">Events over India</h2>
                 </header>
 
                 <div class="swiper-container homepage-regional-events-slider">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-1.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-1.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -786,10 +1113,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-2.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-2.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -803,10 +1130,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-3.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-3.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -820,10 +1147,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-4.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-4.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -837,10 +1164,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-5.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-5.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -854,10 +1181,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-6.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-6.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -871,10 +1198,10 @@ font-family:'Raleway',Arial,monospace;
 
                         <div class="swiper-slide">
                             <figure>
-                                <img src="{% static 'images/event-slider-1.jpg' %}" alt="">
+                                <img src="{% static 'images/bhanu/bhanu-7.jpg' %}" alt="" class="carousal-image"
+                                     style="height:300px; object-fit:cover">
 
-                                <a class="event-overlay-link flex justify-content-center align-items-center"
-                                   href="#">+</a>
+                                <a class="event-overlay-link flex justify-content-center align-items-center"></a>
                             </figure><!-- .hero-image -->
 
                             <div class="entry-header">
@@ -898,27 +1225,6 @@ font-family:'Raleway',Arial,monospace;
                                 d="M1203 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg></span>
                     </div>
                 </div><!-- .swiper-container -->
-
-                <div class="events-partners">
-                    <header class="entry-header">
-                        <h2 class="entry-title">Partners</h2>
-                    </header>
-
-                    <div class="events-partners-logos flex flex-wrap justify-content-between align-items-center">
-                        <div class="event-partner-logo">
-                            <a href="#"><img src="{% static 'images/pixar.png' %}" alt=""></a>
-                        </div>
-
-                        <div class="event-partner-logo">
-                            <a href="#"><img src="{% static 'images/the-pirate.png' %}" alt=""></a>
-                        </div>
-
-
-                        <div class="event-partner-logo">
-                            <a href="#"><img src="{% static 'images/the-pirate.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                </div>
 
 
             </div>

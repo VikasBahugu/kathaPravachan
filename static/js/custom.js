@@ -8,7 +8,7 @@
         $('.site-navigation').toggleClass('show');
     });
 
-    // Hero Slider
+     //Hero Slider
     var mySwiper = new Swiper('.hero-slider', {
         slidesPerView: 1,
         spaceBetween: 0,
@@ -137,12 +137,12 @@
     });
 
     // Accordion & Toggle
-    $('.accordion-wrap.type-accordion').collapsible({
-        accordion: true,
-        contentOpen: 0,
-        arrowRclass: 'arrow-r',
-        arrowDclass: 'arrow-d'
-    });
+//    $('.accordion-wrap.type-accordion').collapsible({
+//        accordion: true,
+//        contentOpen: 0,
+//        arrowRclass: 'arrow-r',
+//        arrowDclass: 'arrow-d'
+//    });
 
     $('.accordion-wrap .entry-title').on('click', function() {
         $('.accordion-wrap .entry-title').removeClass('active');

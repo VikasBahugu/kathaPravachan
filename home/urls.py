@@ -10,13 +10,24 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('videoblog', views.videoblog, name='videoblog'),
     path('newsletter', views.newsletter, name='newsletter'),
-    path('login', views.login, name='login'),
     path('logout', views.logout, name="logout"),
 
 
+    # path('singlepost', views.singlepost, name="singlepost"),
+
+    path('delete_edit_video', views.delete_edit_videopost, name="delete_edit_videopost"),
+
+
     path('sharedkundali', views.shared_kundali, name='sharedkundali'),
+
+    path('videoblog/upload-video', views.videoblog_video, name='videoblog_video'),
+
     path('dashboard', views.dashboard, name='dashboard'),
-    path('answer_questions', views.answer_questions, name='answer_questions'),
+    path('dashboard/twelve_rashi', views.twelve_rashi, name='twelve_rashi'),
+
+    path('dashboard/answer_questions', views.answer_questions, name='answer_questions'),
+    path('delete_answered_question', views.delete_answered_question, name='delete_answered_question'),
+
 
     # path('single-post/<str:title>', views.singlePost, name='single-post'),
     # For posting a comment
@@ -40,8 +51,18 @@ urlpatterns = [
          name="password_reset_complete"),
 
     path('signup', views.signup, name='signup'),
+    path('login', views.login, name='login'),
 
     path('profile', views.profile, name='profile'),
     path('members', views.members, name='members'),
+
+    path('privacy_policy', views.privacy_policy, name='privacy_policy'),
+    path('terms_of_service', views.terms_of_service, name='terms_of_service'),
+
+
+    path('horoscope/<str:horoscope_name>', views.horoscope, name='aries'),
+
+
+
 
 ]

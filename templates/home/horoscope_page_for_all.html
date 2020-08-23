@@ -1,0 +1,37 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+Privacy policy
+{% endblock %}
+
+{% block body %}
+
+<div class="homepage-info-section" style="margin-bottom:-135px; margin-top:-120px">
+    <div class="container">
+
+
+            <h2 class="text-center">{{particular.0}}</h2>
+
+        <div class="card" style="margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */width: 18rem;">
+        <nav aria-label="breadcrumb" style="position:">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Horoscope</a></li>
+                <li class="breadcrumb-item">{{particular.0}}</li>
+            </ol>
+        </nav>
+  <img class="card-img-top" src='{% static 'images/rashi/gemini.jpg' %}' alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+    </div>
+</div>
+<hr style="margin-top:100px">
+{% endblock %}
